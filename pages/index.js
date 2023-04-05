@@ -1,4 +1,5 @@
 import MeetupList from "../components/meetups/MeetupList";
+import Layout from "../components/layout/Layout";
 
 const DUMMY_DATA = [
   {
@@ -20,7 +21,11 @@ const DUMMY_DATA = [
 ];
 
 function HomePage() {
-  return <MeetupList meetups={DUMMY_DATA} />;
+  return (
+    <Layout>
+      <MeetupList meetups={DUMMY_DATA} />
+    </Layout>
+  );
 }
 
 export default HomePage;
