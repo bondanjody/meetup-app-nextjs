@@ -1,15 +1,16 @@
 // /api/new-meetup
 // POST /api/new-meetup
 
-import { MongoClient } from "mongodb";
+import { MongoClient, ServerApiVersion } from "mongodb";
 
 async function handler(req, res) {
   if (req.method === "POST") {
     const data = req.body;
 
     const client = await MongoClient.connect(
-      "mongodb+srv://bondanjs:bondanjs@bondanjody.5piu27x.mongodb.net/meetups?retryWrites=true&w=majority"
+      "mongodb://bondanjs:bondanjs@ac-z0rwix2-shard-00-00.4zimygo.mongodb.net:27017,ac-z0rwix2-shard-00-01.4zimygo.mongodb.net:27017,ac-z0rwix2-shard-00-02.4zimygo.mongodb.net:27017/?ssl=true&replicaSet=atlas-rwib50-shard-0&authSource=admin&retryWrites=true&w=majority"
     );
+
     const db = client.db();
 
     const meetupsCollection = db.collection("meetups");
