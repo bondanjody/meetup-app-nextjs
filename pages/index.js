@@ -1,23 +1,5 @@
+import { MongoClient } from "mongodb";
 import MeetupList from "../components/meetups/MeetupList";
-
-const DUMMY_DATA = [
-  {
-    id: "m1",
-    title: "London",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Tower_Bridge_from_Shad_Thames.jpg/1280px-Tower_Bridge_from_Shad_Thames.jpg",
-    address: "England, United Kingdom",
-    description: "London Meetup",
-  },
-  {
-    id: "m2",
-    title: "Washington D.C.",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/a/a4/Aerial_view_of_Georgetown%2C_Washington%2C_D.C..jpg",
-    address: "Washington, United States",
-    description: "D.C. Meetup",
-  },
-];
 
 function HomePage(props) {
   return <MeetupList meetups={props.meetups} />;
@@ -40,9 +22,26 @@ function HomePage(props) {
 export async function getStaticProps() {
   // fetch data dari API, membaca file
   // NOTE : harus selalu return object
+  const client = await MongoClient.connect(
+    "mongodb://bondanjs:bondanjs@ac-z0rwix2-shard-00-00.4zimygo.mongodb.net:27017,ac-z0rwix2-shard-00-01.4zimygo.mongodb.net:27017,ac-z0rwix2-shard-00-02.4zimygo.mongodb.net:27017/?ssl=true&replicaSet=atlas-rwib50-shard-0&authSource=admin&retryWrites=true&w=majority"
+  );
+
+  const db = client.db();
+
+  const meetupsCollection = db.collection("meetups");
+
+  const meetupsData = await meetupsCollection.find().toArray();
+
+  client.close();
+
   return {
     props: {
-      meetups: DUMMY_DATA,
+      meetups: meetupsData.map((meetup) => ({
+        title: meetup.title,
+        address: meetup.address,
+        image: meetup.image,
+        id: meetup._id.toString(),
+      })),
     },
     revalidate: 10,
     // Mengatur seberapa sering aplikasi melakukan pre-generated secara otomatis (misal : 10 seconds)
