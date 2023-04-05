@@ -1,6 +1,5 @@
 // website.com/m1
 
-import { Fragment } from "react";
 import MeetupDetail from "../../components/meetups/MeetupDetail";
 
 function MeetupDetails(props) {
@@ -12,6 +11,24 @@ function MeetupDetails(props) {
       description="Meetup description"
     />
   );
+}
+
+export async function getStaticPaths() {
+  return {
+    fallback: false,
+    paths: [
+      {
+        params: {
+          meetupId: "m1",
+        },
+      },
+      {
+        params: {
+          meetupId: "m2",
+        },
+      },
+    ],
+  };
 }
 
 export async function getStaticProps(context) {
