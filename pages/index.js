@@ -30,6 +30,8 @@ export async function getStaticProps() {
     props: {
       meetups: DUMMY_DATA,
     },
+    revalidate: 10,
+    // Mengatur seberapa sering aplikasi melakukan pre-generated secara otomatis (misal : 10 seconds)
   };
 }
 
