@@ -1,3 +1,5 @@
+// website.com/m1
+
 import { Fragment } from "react";
 import MeetupDetail from "../../components/meetups/MeetupDetail";
 
