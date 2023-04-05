@@ -24,29 +24,29 @@ function HomePage(props) {
 }
 
 // Metode Server-Side Rendering
-export async function getServerSideProps(context) {
-  const req = context.req;
-  const res = context.res;
-  // Bisa melakukan operasi fetch data, dll.
-  // Fungsi ini hanya dijalankan di server
-  return {
-    props: {
-      meetups: DUMMY_DATA,
-    },
-  };
-}
-
-// Metode Static Site Generation
-// export async function getStaticProps() {
-//   // fetch data dari API, membaca file
-//   // NOTE : harus selalu return object
+// export async function getServerSideProps(context) {
+//   const req = context.req;
+//   const res = context.res;
+//   // Bisa melakukan operasi fetch data, dll.
+//   // Fungsi ini hanya dijalankan di server
 //   return {
 //     props: {
 //       meetups: DUMMY_DATA,
 //     },
-//     revalidate: 10,
-//     // Mengatur seberapa sering aplikasi melakukan pre-generated secara otomatis (misal : 10 seconds)
 //   };
 // }
+
+// Metode Static Site Generation
+export async function getStaticProps() {
+  // fetch data dari API, membaca file
+  // NOTE : harus selalu return object
+  return {
+    props: {
+      meetups: DUMMY_DATA,
+    },
+    revalidate: 10,
+    // Mengatur seberapa sering aplikasi melakukan pre-generated secara otomatis (misal : 10 seconds)
+  };
+}
 
 export default HomePage;
