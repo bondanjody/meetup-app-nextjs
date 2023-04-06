@@ -10,7 +10,7 @@ function HomePage(props) {
         <title>Meetup App</title>
         <meta name="description" content="Browse a huge list of meetups !" />
       </Head>
-      <MeetupList meetups={props.meetups} />;
+      <MeetupList meetups={props.meetups} />
     </Fragment>
   );
 }
